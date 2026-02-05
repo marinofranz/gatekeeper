@@ -18,6 +18,7 @@ export const auth = betterAuth({
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      disableSignUp: true,
     },
   },
   plugins: [
@@ -27,4 +28,9 @@ export const auth = betterAuth({
     }),
     organization(),
   ],
+  account: {
+    accountLinking: {
+      disableImplicitLinking: true,
+    },
+  },
 });
