@@ -23,7 +23,8 @@ export const auth = betterAuth({
   },
   plugins: [
     passkey({
-      rpID: "marino.codes",
+      rpID:
+        process.env.NODE_ENV === "production" ? "marino.codes" : "localhost",
       rpName: "Gatekeeper",
     }),
     organization(),
