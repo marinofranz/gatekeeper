@@ -12,8 +12,9 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { authClient } from "@/lib/client/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const formSchema = z.object({
   email: z.email(),
@@ -77,6 +78,31 @@ export function LoginForm() {
     );
   };
 
+  useEffect(() => {
+    if (
+      !PublicKeyCredential.isConditionalMediationAvailable ||
+      !PublicKeyCredential.isConditionalMediationAvailable()
+    ) {
+      return;
+    }
+
+    authClient.signIn.passkey({
+      autoFill: true,
+      fetchOptions: {
+        onRequest: () => {
+          setLoading(true);
+        },
+        onSuccess: () => {
+          router.push("/dashboard");
+        },
+        onError: ({ error }) => {
+          setLoading(false);
+          form.setError("email", { message: error.message });
+        },
+      },
+    });
+  }, [router, form]);
+
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
       <FieldGroup>
@@ -95,6 +121,7 @@ export function LoginForm() {
                 id={field.name}
                 type="email"
                 placeholder="you@example.com"
+                autoComplete="email"
                 aria-invalid={fieldState.invalid}
                 required
               />
@@ -108,11 +135,20 @@ export function LoginForm() {
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+              <div className="flex items-center justify-between">
+                <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                <Link
+                  href="/forgot-password"
+                  className="text-xs text-primary underline-offset-4 hover:underline"
+                >
+                  Forgot password?
+                </Link>
+              </div>
               <Input
                 {...field}
                 id={field.name}
                 type="password"
+                autoComplete="current-password webauthn"
                 aria-invalid={fieldState.invalid}
                 required
               />
