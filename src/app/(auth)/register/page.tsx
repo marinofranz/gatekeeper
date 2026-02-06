@@ -1,9 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { type LucideIcon, Timer, Shield, Users } from "lucide-react";
+import { RegisterForm } from "./form";
 
 interface Feature {
   icon: LucideIcon;
@@ -72,49 +70,7 @@ export default async function RegisterPage() {
             </h1>
           </header>
 
-          <form>
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  required
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" required />
-              </div>
-
-              <Button type="submit">Register</Button>
-
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-2 text-gray-500">or</span>
-                </div>
-              </div>
-
-              <Button variant="outline" type="button">
-                Register with Google
-              </Button>
-
-              <span className="text-muted-foreground text-xs text-center">
-                Already have an account?{" "}
-                <a
-                  href="/login"
-                  className="text-primary underline-offset-4 hover:underline"
-                >
-                  Login
-                </a>
-              </span>
-            </div>
-          </form>
+          <RegisterForm />
 
           <footer className="flex flex-row items-center justify-center text-sm text-slate-500">
             &copy; {new Date().getFullYear()} Gatekeeper
