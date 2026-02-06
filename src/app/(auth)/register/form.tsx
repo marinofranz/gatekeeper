@@ -82,6 +82,7 @@ export function RegisterForm() {
                   id={field.name}
                   type="text"
                   placeholder="John"
+                  autoComplete="given-name"
                   aria-invalid={fieldState.invalid}
                   required
                 />
@@ -99,6 +100,7 @@ export function RegisterForm() {
                   id={field.name}
                   type="text"
                   placeholder="Doe"
+                  autoComplete="family-name"
                   aria-invalid={fieldState.invalid}
                   required
                 />
@@ -118,6 +120,7 @@ export function RegisterForm() {
                 id={field.name}
                 type="email"
                 placeholder="you@example.com"
+                autoComplete="email"
                 aria-invalid={fieldState.invalid}
                 required
               />
@@ -135,6 +138,7 @@ export function RegisterForm() {
                 {...field}
                 id={field.name}
                 type="password"
+                autoComplete="new-password"
                 aria-invalid={fieldState.invalid}
                 required
               />
