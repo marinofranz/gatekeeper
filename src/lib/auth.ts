@@ -33,4 +33,7 @@ export const auth = betterAuth({
       disableImplicitLinking: true,
     },
   },
+  advanced: {
+    cookiePrefix: "gatekeeper",
+  },
 });
